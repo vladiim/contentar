@@ -52,6 +52,7 @@ class SiteSpider
       spidr.every_page do |page|
         page.url
         page.title
+        page.published
       end
     end
 
