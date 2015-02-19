@@ -9,14 +9,16 @@ class PageStats
     @values     = { 'async' => false, 'data' => { 'url' => url } }
   end
 
+  attr_reader :social_data
   def data
-    social = attempt_get_social
-    JSON.parse(social)
+    social       = attempt_get_social_data
+    @social_data = JSON.parse(social)['data']['stats']
+    
   end
 
   private
 
-  def attempt_get_social
+  def attempt_get_social_data
     begin
       get_social_data
     rescue RestClient::RequestTimeout
@@ -29,6 +31,6 @@ class PageStats
   end
 
   def request_timeout_error_data
-    { error: 'request timeout' }.to_json
+    { 'data' => { 'stats' => { error: 'request timeout' } } }.to_json
   end
 end

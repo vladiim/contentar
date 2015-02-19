@@ -61,10 +61,27 @@ class MockPageStats
   end
 
   def self.mock_return
-    { status: 200, body: json, headers: {} }
+    { status: 200, body: social_data, headers: {} }
   end
 
   def self.json
-    data.to_json
+    { 'data' => { 'stats' => data } }.to_json
+  end
+
+  def self.social_data
+    { 'data' => { 'stats' =>
+      'stumbleupon' => { 'views'            => 0 },
+      'reddit'      => { 'submission_count' => 0,
+                         'comment_total'    => 0,
+                         'score_total'      => 0 },
+      'google+'     => { 'share_count'      => 0 },
+      'pinterest'   => { 'share_count'      => 0 },
+      'twitter'     => { 'share_count'      => 0 },
+      'linkedin'    => { 'share_count'      => 0 },
+      'facebook'    => { 'share_count'      => 0,
+                         'like_count'       => 0,
+                         'comment_count'    => 0 }
+      }
+    }.to_json
   end
 end
