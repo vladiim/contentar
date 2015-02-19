@@ -4,6 +4,10 @@ require 'byebug'
 require 'ostruct'
 require_relative '../app.rb'
 
+RSpec.configure do |c|
+  c.warnings = false
+end
+
 URL = 'http://www.example.com/'
 
 def stub_url_request
@@ -19,5 +23,5 @@ def mock_headers
 end
 
 def mock_return
-  { status: 200, body: OpenStruct.new(title: 'blah'), headers: {blah: 'lol'} }
+  { status: 200, body: OpenStruct.new(title: 'blah'), headers: {} }
 end

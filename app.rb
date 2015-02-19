@@ -1,4 +1,6 @@
 require 'spidr'
+require 'json'
+require 'rest-client'
 require 'dotenv'
 
 Dir["#{ Dir.pwd }/lib/*"].each { |file| require file }
@@ -16,7 +18,7 @@ class App
   end
 
   def save_data
-    DataSaver.csv(csv_filename, crawler.data)
+    DataSaver.csv(csv_filename, crawler.get_data)
   end
 
   private

@@ -20,7 +20,7 @@ RSpec.describe App do
     let(:file_name) { 'example.com.csv' }
 
     it 'saves the data' do
-      allow(subject.crawler).to receive(:data) { 'DATA' }
+      allow(subject.crawler).to receive(:get_data) { 'DATA' }
       expect(DataSaver).to receive(:csv).with(file_name, 'DATA')
       subject.save_data
     end
