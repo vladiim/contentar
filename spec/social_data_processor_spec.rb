@@ -1,25 +1,19 @@
 require 'spec_helper'
 
-RSpec.describe SocialPageStats do
-  let(:data)    { MockSocialPageStats.data }
-  let(:subject) { SocialPageStats.new(data) }
-
-  describe '.new' do
-    it 'saves the data' do
-      expect(subject.json_data).to eq(data)
-    end
-  end
+RSpec.describe SocialDataProcessor do
+  let(:subject) { SocialDataProcessor.new}
 
   describe '.data' do
-    let(:processed_data) { MockSocialPageStats.processed_data }
+    let(:data)           { MockSocialDataProcessor.data }
+    let(:processed_data) { MockSocialDataProcessor.processed_data }
 
     it 'returns the processed data' do
-      expect(subject.data).to eq(processed_data)
+      expect(subject.data(data)).to eq(processed_data)
     end
   end
 end
 
-class MockSocialPageStats
+class MockSocialDataProcessor
 
   def self.processed_data
     {
