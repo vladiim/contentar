@@ -11,12 +11,15 @@ class PageStats
 
   attr_reader :social_data
   def data
-    social       = attempt_get_social_data
-    @social_data = JSON.parse(social)['data']['stats']
-    
+    @social_data = social_page_stats(attempt_get_social_data)
   end
 
   private
+
+  def social_page_stats(data)
+    return data if data == request_timeout_error_data
+    SocialPageStats.new(data).data
+  end
 
   def attempt_get_social_data
     begin

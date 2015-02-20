@@ -24,9 +24,10 @@ RSpec.describe PageStats do
   end
 
   describe '#data' do
-    context 'successful request' do
+    context 'successful request', focus: true do
       it 'returns the page stats data' do
         stub_request(:post, MockPageStats.url).with(MockPageStats.mock_body_headers).to_return(MockPageStats.mock_return)
+        allow(SocialPageStats).to receive(:new).with(any_args) { MockSocialPageStats.new }
         expect(subject.data).to eq(MockPageStats.data)
       end
     end
@@ -34,21 +35,21 @@ RSpec.describe PageStats do
     context 'request time out' do
       it 'returns the error data' do
         stub_request(:post, MockPageStats.url).with(MockPageStats.mock_body_headers).to_timeout
-        expect(subject.data).to eq({ 'error' => 'request timeout'})
+        expect(subject.data).to eq(MockPageStats.error_data)
       end
     end
   end
 end
 
+class MockSocialPageStats
+  def data
+    MockPageStats.data
+  end
+end
+
 class MockPageStats
   def self.data
-    {
-      'stumbleupon_views' => 0, 'reddit_submissions' => 0,
-      'reddit_comments' => 0, 'reddit_score' => 0, 'google_plus_shares' => 0,
-      'pinterest_shares' => 0, 'twitter_shares' => 0, 'linkedin_shares' => 0,
-      'facebook_shares' => 0, 'facebook_likes' => 0, 'facebook_comments' => 0#,
-      # http://docs.analysisengine.apiary.io/#reference/detailed-examples/readinglevel
-    }
+    'DATA'
   end
 
   def self.url
@@ -61,27 +62,14 @@ class MockPageStats
   end
 
   def self.mock_return
-    { status: 200, body: social_data, headers: {} }
+    { status: 200, body: data, headers: {} }
   end
 
   def self.json
     { 'data' => { 'stats' => data } }.to_json
   end
 
-  def self.social_data
-    { 'data' => { 'stats' =>
-      'stumbleupon' => { 'views'            => 0 },
-      'reddit'      => { 'submission_count' => 0,
-                         'comment_total'    => 0,
-                         'score_total'      => 0 },
-      'google+'     => { 'share_count'      => 0 },
-      'pinterest'   => { 'share_count'      => 0 },
-      'twitter'     => { 'share_count'      => 0 },
-      'linkedin'    => { 'share_count'      => 0 },
-      'facebook'    => { 'share_count'      => 0,
-                         'like_count'       => 0,
-                         'comment_count'    => 0 }
-      }
-    }.to_json
+  def self.error_data
+    { 'data' => { 'stats' => { error: 'request timeout' } } }.to_json
   end
 end
