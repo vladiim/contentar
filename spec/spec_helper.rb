@@ -1,5 +1,5 @@
 require 'webmock/rspec'
-require 'FileUtils'
+require 'fileutils'
 require 'byebug'
 require 'ostruct'
 require_relative '../app.rb'

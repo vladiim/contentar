@@ -6,19 +6,35 @@ class PageStats
     @url        = url
     @access_key = ENV['PRICE_ACCESS_KEY']
     @headers    = { x_access_key: access_key }
-    @values     = { 'async' => false, 'data' => { 'url' => url } }
+    @values     = { 'async' => false, 'data' => { 'url' => url } }.to_json
   end
 
-  attr_reader :social_data
   def data
-    @social_data = social_page_stats(attempt_get_social_data)
+    social_data.merge(reading_level_data)
   end
+
+  def social_data
+    @social_data ||= social_page_stats(attempt_get_social_data)
+  end
+
+  def reading_level_data
+    @reading_level_data ||= reading_level_page_stats(attempt_get_reading_data)
+  end
+
+  # def content_data
+  #   @content_data ||= 
+  # end
 
   private
 
   def social_page_stats(data)
     return data if data == request_timeout_error_data
     SocialPageStats.new(data).data
+  end
+
+  def reading_level_page_stats(data)
+    return data if data == request_timeout_error_data
+    ReadingLevelPageStats.new(data).data
   end
 
   def attempt_get_social_data
@@ -29,8 +45,29 @@ class PageStats
     end
   end
 
+  def attempt_get_reading_data
+    begin
+      get_reading_data
+    rescue RestClient::RequestTimeout
+      request_timeout_error_data
+    end
+  end
+
   def get_social_data
-    RestClient.post("#{ API }social", values.to_json, headers)
+    RestClient.post("#{ API }social", values, headers)
+  end
+
+  def get_reading_data
+    RestClient.post("#{ API }readinglevel", reading_values, headers)
+  end
+
+  def reading_values
+    {
+        async: false,
+        data: {
+            content: 'content',
+        }
+    }.to_json
   end
 
   def request_timeout_error_data
