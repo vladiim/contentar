@@ -3,6 +3,8 @@ require 'json'
 require 'rest-client'
 require 'dotenv'
 
+autoload(:DataGetter, './lib/data_getter.rb')
+
 Dir["#{ Dir.pwd }/lib/*"].each { |file| require file }
 
 Dotenv.load

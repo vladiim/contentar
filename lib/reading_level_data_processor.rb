@@ -1,11 +1,15 @@
-class ReadingLevelPageStats
+class ReadingLevelDataProcessor
   attr_reader :json_data, :stats
-  def initialize(json_data)
+
+  def data(json_data)
     @json_data = json_data
     @stats     = JSON.parse(json_data).fetch('data')
+    process
   end
 
-  def data
+  private
+
+  def process
     {
       composite:      stats.fetch('composite'),
       ari:            stats.fetch('ari'),

@@ -1,25 +1,19 @@
 require 'spec_helper'
 
-RSpec.describe ContentPage do
-  let(:data)    { MockContentPage.data }
-  let(:subject) { ContentPage.new(data) }
-
-  describe '.new' do
-    it 'saves the data' do
-      expect(subject.json_data).to eq(data)
-    end
-  end
+RSpec.describe ContentDataProcessor do
+  let(:subject) { ContentDataProcessor.new }
 
   describe '.data' do
-    let(:processed_data) { MockContentPage.processed_data }
+    let(:data)           { MockContentDataProcessor.data }
+    let(:processed_data) { MockContentDataProcessor.processed_data }
 
     it 'returns the processed data' do
-      expect(subject.data).to eq(processed_data)
+      expect(subject.data(data)).to eq(processed_data)
     end
   end
 end
 
-class MockContentPage
+class MockContentDataProcessor
 
   def self.processed_data
     { content: html }

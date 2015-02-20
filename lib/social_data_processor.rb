@@ -1,39 +1,15 @@
-# class DataFormatter
-# end
-
-# class SocialDataFormatter < DataFormatter
-# end
-
-
-
-# class SocialPageStats
 class SocialDataProcessor
   attr_reader :json_data, :stats
-  # def initialize
-    # @json_data = json_data
-    # @stats     = JSON.parse(json_data).fetch('data').fetch('stats')
-  # end
-
-  # def data
-  #   {
-  #     stumbleupon_views: stumbleupon_views, reddit_submissions: reddit_submissions,
-  #     reddit_comments: reddit_comments, reddit_score: reddit_score,
-  #     google_plus_shares: google_plus_shares, pinterest_shares: pinterest_shares,
-  #     twitter_shares: twitter_shares, linkedin_shares: linkedin_shares,
-  #     facebook_shares: facebook_shares, facebook_likes: facebook_likes,
-  #     facebook_comments: facebook_comments
-  #  }
-  # end
 
   def data(json_data)
     @json_data = json_data
     @stats     = JSON.parse(json_data).fetch('data').fetch('stats')
-    process_data
+    process
   end
 
   private
 
-  def process_data
+  def process
     {
       stumbleupon_views: stumbleupon_views, reddit_submissions: reddit_submissions,
       reddit_comments: reddit_comments, reddit_score: reddit_score,

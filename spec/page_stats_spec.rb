@@ -40,39 +40,39 @@ RSpec.describe PageStats do
   #   end
   # end
 
-  describe '#reading_level_data' do
-    context 'successful request' do
-      it 'returns the page reading data' do
-        stub_request(:post, MockPageStats.reading_url).with(MockPageStats.mock_reading_body_headers).to_return(MockPageStats.mock_return)
-        allow(ReadingLevelPageStats).to receive(:new).with(any_args) { MockReadingLevelPageStats.new }
-        expect(subject.reading_level_data).to eq(MockPageStats.data)
-      end
-    end
+  # describe '#reading_level_data' do
+  #   context 'successful request' do
+  #     it 'returns the page reading data' do
+  #       stub_request(:post, MockPageStats.reading_url).with(MockPageStats.mock_reading_body_headers).to_return(MockPageStats.mock_return)
+  #       allow(ReadingLevelPageStats).to receive(:new).with(any_args) { MockReadingLevelPageStats.new }
+  #       expect(subject.reading_level_data).to eq(MockPageStats.data)
+  #     end
+  #   end
 
-    context 'request time out' do
-      it 'returns the error data' do
-        stub_request(:post, MockPageStats.reading_url).with(MockPageStats.mock_reading_body_headers).to_timeout
-        expect(subject.reading_level_data).to eq(MockPageStats.error_data)
-      end
-    end
-  end
+  #   context 'request time out' do
+  #     it 'returns the error data' do
+  #       stub_request(:post, MockPageStats.reading_url).with(MockPageStats.mock_reading_body_headers).to_timeout
+  #       expect(subject.reading_level_data).to eq(MockPageStats.error_data)
+  #     end
+  #   end
+  # end
 
-  describe '#content_data' do
-    context 'successful request' do
-      it 'returns the page content data' do
-        stub_request(:post, MockPageStats.content_url).with(MockPageStats.mock_content_body_headers).to_return(MockPageStats.mock_return)
-        allow(ContentPage).to receive(:new).with(any_args) { MockContentPage.new }
-        expect(subject.content_data).to eq(MockPageStats.data)
-      end
-    end
+  # describe '#content_data' do
+  #   context 'successful request' do
+  #     it 'returns the page content data' do
+  #       stub_request(:post, MockPageStats.content_url).with(MockPageStats.mock_content_body_headers).to_return(MockPageStats.mock_return)
+  #       allow(ContentPage).to receive(:new).with(any_args) { MockContentPage.new }
+  #       expect(subject.content_data).to eq(MockPageStats.data)
+  #     end
+  #   end
 
-    context 'request time out' do
-      it 'returns the error data' do
-        stub_request(:post, MockPageStats.content_url).with(MockPageStats.mock_content_body_headers).to_timeout
-        expect(subject.content_data).to eq(MockPageStats.error_data)
-      end
-    end
-  end
+  #   context 'request time out' do
+  #     it 'returns the error data' do
+  #       stub_request(:post, MockPageStats.content_url).with(MockPageStats.mock_content_body_headers).to_timeout
+  #       expect(subject.content_data).to eq(MockPageStats.error_data)
+  #     end
+  #   end
+  # end
 end
 
 class MockSocialPageStats

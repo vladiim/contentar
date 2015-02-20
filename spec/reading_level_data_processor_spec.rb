@@ -1,25 +1,19 @@
 require 'spec_helper'
 
-RSpec.describe ReadingLevelPageStats do
-  let(:data)    { MockReadingLevelPageStats.data }
-  let(:subject) { ReadingLevelPageStats.new(data) }
-
-  describe '.new' do
-    it 'saves the data' do
-      expect(subject.json_data).to eq(data)
-    end
-  end
+RSpec.describe ReadingLevelDataProcessor do
+  let(:subject) { ReadingLevelDataProcessor.new }
 
   describe '.data' do
-    let(:processed_data) { MockReadingLevelPageStats.processed_data }
+    let(:data)           { MockReadingLevelDataProcessor.data }
+    let(:processed_data) { MockReadingLevelDataProcessor.processed_data }
 
     it 'returns the processed data' do
-      expect(subject.data).to eq(processed_data)
+      expect(subject.data(data)).to eq(processed_data)
     end
   end
 end
 
-class MockReadingLevelPageStats
+class MockReadingLevelDataProcessor
 
   def self.processed_data
     {

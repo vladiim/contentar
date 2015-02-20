@@ -1,5 +1,4 @@
 class SocialDataGetter < DataGetter
-  attr_reader :url, :processor, :api_call, :values
   def initialize(url)
     @url       = url
     @processor = SocialDataProcessor.new
