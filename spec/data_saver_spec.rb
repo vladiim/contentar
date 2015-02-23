@@ -11,6 +11,13 @@ RSpec.describe DataSaver do
       result
       expect(File.file?(csv_file)).to be
     end
+
+    it 'adds the data as content' do
+      result
+      file = File.open(csv_file).read
+      byebug
+      true
+    end
   end
 end
 
