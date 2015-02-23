@@ -6,8 +6,13 @@ class PageStats
   end
 
   def data
-    social_data.merge(reading_level_data).merge(content_data)
+    social_data
+      .merge(reading_level_data)
+      .merge(article_data)
+      .merge(word_count_data)
   end
+
+  private
 
   def social_data
     @social_data ||= SocialDataGetter.new(url).data
@@ -19,5 +24,13 @@ class PageStats
 
   def content_data
     @content_data ||= ContentDataGetter.new(url).data
+  end
+
+  def article_data
+    @article_data ||= ArticleDataGetter.new(content_data.fetch(:content)).data
+  end
+
+  def word_count_data
+    article_data.fetch(:article).length
   end
 end

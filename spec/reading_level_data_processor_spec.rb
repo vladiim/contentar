@@ -17,8 +17,8 @@ class MockReadingLevelDataProcessor
 
   def self.processed_data
     {
-      composite: 0, ari: 0, coleman_liau: 0,
-      flesch_kincaid: 0, gunning_fog: 0, smog: 0
+      composite_reading_level: 0, ari_reading_level: 0, coleman_liau_reading_level: 0,
+      flesch_kincaid_reading_level: 0, gunning_fog_reading_level: 0, smog_reading_level: 0
     }
   end
 

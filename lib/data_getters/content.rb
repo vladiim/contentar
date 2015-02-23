@@ -4,6 +4,7 @@ class ContentDataGetter < DataGetter
     @processor = ContentDataProcessor.new
     @api_call  = 'fetch'
     @values    = content_values
+    super
   end
 
   private

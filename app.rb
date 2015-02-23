@@ -3,15 +3,16 @@ require 'json'
 require 'rest-client'
 require 'dotenv'
 
-autoload(:DataGetter, './lib/data_getter.rb')
+autoload(:DataGetter, './lib/data_getters/data_getter.rb')
 
-Dir["#{ Dir.pwd }/lib/*"].each { |file| require file }
+Dir["#{ Dir.pwd }/lib/**/*.rb"].each { |file| require file }
+
 
 Dotenv.load
 
 class App
 
-  attr_reader :baseurl, :spider, :crawler
+  attr_reader :baseurl, :spider, :crawler, :saver
   def initialize(baseurl)
     @baseurl = baseurl
     @spider  = Spider.new(baseurl)
