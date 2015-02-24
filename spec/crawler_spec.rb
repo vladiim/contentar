@@ -12,19 +12,13 @@ RSpec.describe Crawler do
 
   describe '#get_data' do
     it 'returns updated data' do
-      allow(PageStats).to receive(:new).with(MockCrawler.url) { MockPageStats.new }
+      allow(PageStats).to receive(:new).with(MockCrawler.url) { MockCrawler::MockPageStats.new }
       expect(subject.get_data).to eq(MockCrawler.updated_mock_data)
     end
   end
 end
 
-class MockPageStats
-  def data
-    MockCrawler.crawler_data
-  end
-end
-
-class MockCrawler
+module MockCrawler
   def self.url
     URL
   end
@@ -44,5 +38,11 @@ class MockCrawler
       pinterest_shares: 0, twitter_shares: 0, linkedin_shares: 0,
       facebook_shares: 0, facebook_likes: 0, facebook_comments: 0
     }
+  end
+
+  class MockPageStats
+    def data
+      MockCrawler.crawler_data
+    end
   end
 end
