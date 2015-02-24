@@ -1,5 +1,6 @@
 require 'spidr'
 require 'json'
+require 'csv'
 require 'rest-client'
 require 'dotenv'
 

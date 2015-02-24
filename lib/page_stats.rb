@@ -6,10 +6,10 @@ class PageStats
   end
 
   def data
-    social_data
-      .merge(reading_level_data)
-      .merge(article_data)
-      .merge(word_count_data)
+    social_data.
+      merge(reading_level_data).
+      merge(article_data).
+      merge(word_count_data)
   end
 
   private
@@ -31,6 +31,6 @@ class PageStats
   end
 
   def word_count_data
-    article_data.fetch(:article).length
+    { word_count: article_data.fetch(:article).length }
   end
 end

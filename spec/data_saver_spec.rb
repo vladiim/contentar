@@ -12,11 +12,22 @@ RSpec.describe DataSaver do
       expect(File.file?(csv_file)).to be
     end
 
-    it 'adds the data as content' do
-      result
-      file = File.open(csv_file).read
-      byebug
-      true
+    context 'add content' do
+      let(:file) { CSV.open(csv_file, 'r') }
+
+      after { file.close }
+
+      it 'adds the header content' do
+        result
+        headers = file.read[0]
+        expect(headers).to eq(['one', 'two'])
+      end
+
+      it 'adds the data rows' do
+        result
+        first_row = file.read[1]
+        expect(first_row).to eq(['ONE', 'TWO'])
+      end
     end
   end
 end
@@ -27,6 +38,6 @@ class MockDataSaver
   end
 
   def self.data
-    { 0 => { one: 'ONE', two: 'TWO' } }
+    [{ one: 'ONE', two: 'TWO' }]
   end
 end
