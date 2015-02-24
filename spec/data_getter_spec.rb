@@ -68,7 +68,7 @@ class MockDataGetter
   end
 
   def self.data
-    { 'data' => { 'stats' => { blah: 'DATA' } } }.to_json
+    { data: 'DATA' }.to_json
   end
 
   def self.values_headers
@@ -88,10 +88,10 @@ class MockDataGetter
   end
 
   def self.error_data
-    { 'data' => { 'stats' => { error: 'Request Timeout' } } }.to_json
+    { error: 'Request Timeout' }.to_json
   end
 
   def self.server_error_data
-    { 'data' => { 'stats' => { error: '500 Internal Server Error' } } }.to_json
+    { error: '500 Internal Server Error' }.to_json
   end
 end

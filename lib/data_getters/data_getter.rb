@@ -32,11 +32,11 @@ class DataGetter
   end
 
   def error_data(error)
-    { 'data' => { 'stats' => { error: error } } }.to_json
+    { error: error }.to_json
   end
 
   def is_error?(response)
     parsed = JSON.parse(response)
-    parsed.fetch('data').fetch('stats').fetch('error') { false }
+    parsed.fetch('error') { false }
   end
 end
