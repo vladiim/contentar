@@ -20,15 +20,23 @@ RSpec.describe DataGetter do
     describe '#data' do
       context 'successful request' do
         before { stub_request(:post, MockDataGetter.url).with(MockDataGetter.values_headers).to_return(MockDataGetter.mock_return) }
+
         it 'returns the page stats data' do
-          expect(sibling.data).to eq('DATA')
+          expect(sibling.data).to eq(MockDataGetter.data)
         end
       end
 
       context 'request time out' do
-        it 'returns the error data' do
+        it 'returns the time out error data' do
           stub_request(:post, MockDataGetter.url).with(MockDataGetter.values_headers).to_timeout
           expect(sibling.data).to eq(MockDataGetter.error_data)
+        end
+      end
+
+      context 'internal server error' do
+        it 'returns the internal server error data' do
+          stub_request(:post, MockDataGetter.url).with(MockDataGetter.values_headers).to_return(status: [500, "Internal Server Error"])
+          expect(sibling.data).to eq(MockDataGetter.server_error_data)
         end
       end
     end
@@ -46,7 +54,7 @@ end
 
 class MockProcessor
   def data(response_data)
-    'DATA'
+    MockDataGetter.data
   end
 end
 
@@ -57,6 +65,10 @@ class MockDataGetter
 
   def self.api_call
     'API_CALL'
+  end
+
+  def self.data
+    { 'data' => { 'stats' => { blah: 'DATA' } } }.to_json
   end
 
   def self.values_headers
@@ -72,10 +84,14 @@ class MockDataGetter
   end
 
   def self.mock_return
-    { status: 200, body: 'BODY', headers: {} }
+    { status: 200, body: data, headers: {} }
   end
 
   def self.error_data
-    { 'data' => { 'stats' => { error: 'request timeout' } } }.to_json
+    { 'data' => { 'stats' => { error: 'Request Timeout' } } }.to_json
+  end
+
+  def self.server_error_data
+    { 'data' => { 'stats' => { error: '500 Internal Server Error' } } }.to_json
   end
 end

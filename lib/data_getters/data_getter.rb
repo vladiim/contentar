@@ -9,7 +9,7 @@ class DataGetter
   end
 
   def data
-    return request_timeout_error_data if response_data == request_timeout_error_data
+    return response_data if is_error?(response_data)
     processor.data(response_data)
   end
 
@@ -22,8 +22,8 @@ class DataGetter
   def attempt_get
     begin
       get
-    rescue RestClient::RequestTimeout
-      request_timeout_error_data
+    rescue RestClient::RequestTimeout, RestClient::InternalServerError => error
+      error_data(error.message)
     end
   end
 
@@ -31,7 +31,12 @@ class DataGetter
     RestClient.post("#{ API }#{ api_call }", values, headers)
   end
 
-  def request_timeout_error_data
-    { 'data' => { 'stats' => { error: 'request timeout' } } }.to_json
+  def error_data(error)
+    { 'data' => { 'stats' => { error: error } } }.to_json
+  end
+
+  def is_error?(response)
+    parsed = JSON.parse(response)
+    parsed.fetch('data').fetch('stats').fetch('error') { false }
   end
 end

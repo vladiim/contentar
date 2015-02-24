@@ -17,8 +17,7 @@ class App
   def initialize(baseurl)
     @baseurl = baseurl
     @spider  = Spider.new(baseurl)
-    spider.get_data
-    @crawler = Crawler.new(spider.data)
+    @crawler = Crawler.new(spider.get_data)
   end
 
   def save_data
