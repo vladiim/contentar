@@ -1,15 +1,22 @@
-class ArticleDataProcessor
-  attr_reader :json_data, :parsed_data
+# IF YOU STILL DON'T NEED THIS DELETE IT!
 
-  def data(json_data)
-    @json_data   = json_data
-    @parsed_data = JSON.parse(json_data).fetch('data')
-    process
-  end
+# class ArticleDataProcessor
+#   attr_reader :json_data, :parsed_data
 
-  private
+#   def data(json_data)
+#     @json_data   = json_data
+#     @parsed_data = parse_data
+#     process
+#   end
 
-  def process
-    { article: parsed_data.fetch('content') }
-  end
-end
+#   private
+
+#   def process
+#     article = parsed_data.fetch('content') { '' }
+#     { article: article }
+#   end
+
+#   def parse_data
+#     JSON.parse(json_data).fetch('data') { {} }
+#   end
+# end

@@ -1,14 +1,24 @@
 require 'spec_helper'
 
 RSpec.describe SocialDataProcessor do
-  let(:subject) { SocialDataProcessor.new}
+  let(:subject)        { SocialDataProcessor.new}
+  let(:processed_data) { MockSocialDataProcessor.processed_data }
 
   describe '.data' do
-    let(:data)           { MockSocialDataProcessor.data }
-    let(:processed_data) { MockSocialDataProcessor.processed_data }
+    context 'correct data' do
+      let(:data) { MockSocialDataProcessor.data }
 
-    it 'returns the processed data' do
-      expect(subject.data(data)).to eq(processed_data)
+      it 'returns the processed data' do
+        expect(subject.data(data)).to eq(processed_data)
+      end
+    end
+
+    context 'no stats' do
+      let(:data) { { foo: 'bar' }.to_json }
+
+      it 'returns no stats data' do
+        expect(subject.data(data)).to eq(processed_data)
+      end
     end
   end
 end

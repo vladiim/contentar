@@ -4,11 +4,22 @@ RSpec.describe ReadingLevelDataProcessor do
   let(:subject) { ReadingLevelDataProcessor.new }
 
   describe '.data' do
-    let(:data)           { MockReadingLevelDataProcessor.data }
     let(:processed_data) { MockReadingLevelDataProcessor.processed_data }
 
-    it 'returns the processed data' do
-      expect(subject.data(data)).to eq(processed_data)
+    context 'good data' do
+      let(:data) { MockReadingLevelDataProcessor.data }
+
+      it 'returns the processed data' do
+        expect(subject.data(data)).to eq(processed_data)
+      end
+    end
+
+    context 'bad data' do
+      let(:data) { {}.to_json }
+
+      it 'returns default values for the processed_data' do
+        expect(subject.data(data)).to eq(processed_data)
+      end
     end
   end
 end

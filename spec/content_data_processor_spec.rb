@@ -4,11 +4,22 @@ RSpec.describe ContentDataProcessor do
   let(:subject) { ContentDataProcessor.new }
 
   describe '.data' do
-    let(:data)           { MockContentDataProcessor.data }
-    let(:processed_data) { MockContentDataProcessor.processed_data }
 
-    it 'returns the processed data' do
-      expect(subject.data(data)).to eq(processed_data)
+    context 'good data' do
+      let(:data)           { MockContentDataProcessor.data }
+      let(:processed_data) { MockContentDataProcessor.processed_data }
+
+      it 'returns the processed data' do
+        expect(subject.data(data)).to eq(processed_data)
+      end
+    end
+
+    context 'bad data' do
+      let(:data) { {}.to_json }
+
+      it 'returns a default' do
+        expect(subject.data(data)).to eq({ content: '' })
+      end
     end
   end
 end

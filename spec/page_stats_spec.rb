@@ -45,7 +45,7 @@ module MockPageStats
   end
 
   def self.error_data
-    { error: 'ERROR' }
+    { error: 'ERROR', word_count: 0 }
   end
 
   def self.merged_data

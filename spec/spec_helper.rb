@@ -15,7 +15,7 @@ def stub_url_request
 end
 
 def mock_data
-  [{ url: URL, title: nil }]
+  [{ url: URL, title: nil, body: '' }]
 end
 
 def mock_headers

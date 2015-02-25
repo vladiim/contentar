@@ -9,7 +9,7 @@ class DataGetter
   end
 
   def data
-    return response_data if is_error?(response_data)
+    return error_process(response_data) if is_error?(response_data)
     processor.data(response_data)
   end
 
@@ -38,5 +38,9 @@ class DataGetter
   def is_error?(response)
     parsed = JSON.parse(response)
     parsed.fetch('error') { false }
+  end
+
+  def error_process(data)
+    JSON.parse(data)
   end
 end

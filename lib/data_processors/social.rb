@@ -3,7 +3,7 @@ class SocialDataProcessor
 
   def data(json_data)
     @json_data = json_data
-    @stats     = JSON.parse(json_data).fetch('data').fetch('stats')
+    @stats     = get_stats
     process
   end
 
@@ -20,47 +20,68 @@ class SocialDataProcessor
     }
   end
 
+  def get_stats
+    dat = JSON.parse(json_data).fetch('data') { return {} }
+    dat.fetch('stats') { return dat }
+  end
+
+  def reddit
+    stats.fetch('reddit') { {} }
+  end
+
+  def google
+    stats.fetch('google+') { {} }
+  end
+
+  def facebook
+    stats.fetch('facebook') { {} }
+  end
+
   def stumbleupon_views
-    stats.fetch('stumbleupon').fetch('views')
+    su = stats.fetch('stumbleupon') { return 0 }
+    su.fetch('views') { return 0 }
   end
 
   def reddit_submissions
-    stats.fetch('reddit').fetch('submission_count')
+    reddit.fetch('submission_count') { 0 }
   end
 
   def reddit_comments
-    stats.fetch('reddit').fetch('comment_total')
+    reddit.fetch('comment_total') { 0 }
   end
 
   def reddit_score
-    stats.fetch('reddit').fetch('score_total')
+    reddit.fetch('score_total') { 0 }
   end
 
   def google_plus_shares
-    stats.fetch('google+').fetch('share_count')
+    google.fetch('share_count') { 0 }
   end
 
   def pinterest_shares
-    stats.fetch('pinterest').fetch('share_count')
+    pinterest = stats.fetch('pinterest') { {} }
+    pinterest.fetch('share_count') { 0 }
   end
 
   def twitter_shares
-    stats.fetch('twitter').fetch('share_count')
+    twitter = stats.fetch('twitter') { {} }
+    twitter.fetch('share_count') { 0 }
   end
 
   def linkedin_shares
-    stats.fetch('linkedin').fetch('share_count')
+    linkedin = stats.fetch('linkedin') { {} }
+    linkedin.fetch('share_count') { 0 }
   end
 
   def facebook_shares
-    stats.fetch('facebook').fetch('share_count')
+    facebook.fetch('share_count') { 0 }
   end
 
   def facebook_likes
-    stats.fetch('facebook').fetch('like_count')
+    facebook.fetch('like_count') { 0 }
   end
 
   def facebook_comments
-    stats.fetch('facebook').fetch('comment_count')
+    facebook.fetch('comment_count') { 0 }
   end
 end

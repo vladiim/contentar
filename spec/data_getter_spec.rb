@@ -88,10 +88,10 @@ class MockDataGetter
   end
 
   def self.error_data
-    { error: 'Request Timeout' }.to_json
+    { 'error' => 'Request Timeout' }
   end
 
   def self.server_error_data
-    { error: '500 Internal Server Error' }.to_json
+    { 'error' => '500 Internal Server Error' }
   end
 end

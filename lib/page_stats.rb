@@ -6,7 +6,6 @@ class PageStats
   end
 
   def data
-    return content_data unless error_fetching_data?
     social_data.
       merge(reading_level_data).
       merge(article_data).
@@ -28,14 +27,12 @@ class PageStats
   end
 
   def article_data
-    @article_data ||= ArticleDataGetter.new(content_data.fetch(:content)).data
+    content = content_data.fetch(:content) { '' }
+    @article_data ||= ArticleDataGetter.new(content).data
   end
 
   def word_count_data
-    { word_count: article_data.fetch(:article).length }
-  end
-
-  def error_fetching_data?
-    content_data.fetch(:content) { false }
+    article = article_data.fetch(:article) { '' }
+    { word_count: article.length }
   end
 end

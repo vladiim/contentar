@@ -2,9 +2,8 @@ class ArticleDataGetter < DataGetter
   attr_reader :content
 
   def initialize(content)
-    # @url       = ''
     @content   = content
-    @processor = ArticleDataProcessor.new
+    @processor = ContentDataProcessor.new
     @api_call  = 'article'
     @values    = article_values
     super
