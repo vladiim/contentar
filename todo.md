@@ -21,3 +21,9 @@ crawl http://www.audi.com/content/
 * pass page body from spidr
 
 * calc moz's one metric: http://moz.com/blog/one-metric
+
+* add site comparison:
+
+> - http://www.similarweb.com/website/
+
+> - http://www.alexa.com/siteinfo/
