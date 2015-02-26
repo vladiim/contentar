@@ -8,9 +8,10 @@ module DataSaver
   private
 
   def self.create_csv(file, data, headers)
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |csv|
+    CSV.open(file, 'w', write_headers: true, headers: headers, encoding: 'UTF-8') do |csv|
       data.each do |d|
-        csv << d.values
+        values = d.values.map { |value| value.force_encoding('UTF-8') }
+        csv << values
       end
     end
   end

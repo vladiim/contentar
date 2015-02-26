@@ -28,6 +28,6 @@ class App
 
   def csv_filename
     baseurl.gsub('http://', '').gsub('www.', '')
-      .gsub('/', '') + '.csv'
+      .gsub('/', '')
   end
 end

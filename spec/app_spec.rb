@@ -17,7 +17,7 @@ RSpec.describe App do
   end
 
   describe '#save_data' do
-    let(:file_name) { 'example.com.csv' }
+    let(:file_name) { 'example.com' }
 
     it 'saves the data' do
       allow(subject.crawler).to receive(:get_data) { 'DATA' }

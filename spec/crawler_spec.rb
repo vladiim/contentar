@@ -24,6 +24,16 @@ RSpec.describe Crawler do
         expect(subject.get_data).to eq(MockCrawler.error_data)
       end
     end
+
+    context 'title is nil' do
+      let(:data)    { [MockCrawler.nil_title] }
+      let(:subject) { Crawler.new(data) }
+
+      it 'returns an empty string' do
+        allow(PageStats).to receive(:new).with(MockCrawler.url) { MockCrawler::MockNilTitle.new }
+        expect(subject.get_data).to eq([MockCrawler.nil_title])
+      end
+    end
   end
 end
 
@@ -34,6 +44,10 @@ module MockCrawler
 
   def self.mock_data
     [{ url: url, title: "\r\nExample Domain\r\n" }]
+  end
+
+  def self.nil_title
+    { url: url }
   end
 
   def self.updated_mock_data
@@ -61,6 +75,12 @@ module MockCrawler
   class MockErrorPageStats
     def data
       raise MockCrawler.error_message
+    end
+  end
+
+  class MockNilTitle
+    def data
+      MockCrawler.nil_title
     end
   end
 end

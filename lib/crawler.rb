@@ -14,13 +14,14 @@ class Crawler
   private
 
   def get_page_data(page_data, index)
-    progress_message(index, page_data.fetch(:title))
+    title = page_data.fetch(:title) { '' }
+    progress_message(index, title)
     page_stats = PageStats.new(page_data.fetch(:url))
     page_data.merge(get_page_stats(page_stats))
   end
 
   def progress_message(index, title)
-    print "Fetching page #{ index }: \t\t#{ title.strip }\n"
+    print "Fetching page #{ index }: \t\t#{ title.to_s.strip }\n"
   end
 
   def get_page_stats(page_stats)

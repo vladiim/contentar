@@ -28,6 +28,15 @@ RSpec.describe DataSaver do
         first_row = file.read[1]
         expect(first_row).to eq(['ONE', 'TWO'])
       end
+
+      # context 'back string encoding', focus: true do
+      #   let(:result)   { DataSaver.csv(MockDataSaver.filename, MockDataSaver.binary_data) }
+      #   it 'ensures the correct encoding is used' do
+      #     result
+      #     first_row = file.read[1]
+      #     expect(first_row).to eq(['ONE', 'TWO'])
+      #   end
+      # end
     end
   end
 end
