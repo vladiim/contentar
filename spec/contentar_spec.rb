@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-RSpec.describe App do
+RSpec.describe Contentar do
   let(:base_url) { URL }
-  let(:subject)  { App.new(base_url) }
+  let(:subject)  { Contentar.new(base_url) }
 
   before { stub_url_request }
 

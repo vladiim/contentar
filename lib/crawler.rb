@@ -21,7 +21,7 @@ class Crawler
   end
 
   def progress_message(index, title)
-    print "Fetching page #{ index }: \t\t#{ title.to_s.strip }\n"
+    print "Fetching page #{ index + 1 }: \t\t#{ title.to_s.strip }\n"
   end
 
   def get_page_stats(page_stats)

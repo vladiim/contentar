@@ -2,7 +2,7 @@ require 'webmock/rspec'
 require 'fileutils'
 require 'byebug'
 require 'ostruct'
-require_relative '../app.rb'
+require_relative '../lib/contentar.rb'
 
 RSpec.configure do |c|
   c.warnings = false
@@ -15,7 +15,7 @@ def stub_url_request
 end
 
 def mock_data
-  [{ url: URL, title: nil, body: '' }]
+  [{ url: URL, title: nil }]
 end
 
 def mock_headers

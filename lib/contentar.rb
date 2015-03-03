@@ -11,7 +11,7 @@ Dir["#{ Dir.pwd }/lib/**/*.rb"].each { |file| require file }
 
 Dotenv.load
 
-class App
+class Contentar
 
   attr_reader :baseurl, :spider, :crawler, :saver
   def initialize(baseurl)
