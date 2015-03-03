@@ -27,3 +27,9 @@ crawl http://www.audi.com/content/
 > - http://www.similarweb.com/website/
 
 > - http://www.alexa.com/siteinfo/
+
+> - http://thegovlab.org/dataset-inventorying-tool/
+
+* Add business intel
+
+> - https://clearbit.com

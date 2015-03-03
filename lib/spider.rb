@@ -26,6 +26,6 @@ class Spider
   end
 
   def get_page_data(page)
-    { url: page.url.to_s, title: page.title, body: page.body }
+    { url: page.url.to_s, title: page.title }
   end
 end
