@@ -1,4 +1,4 @@
 .env
 .rspec
 .ruby-version
-./data/*
+./data
