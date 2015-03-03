@@ -4,9 +4,9 @@ require 'csv'
 require 'rest-client'
 require 'dotenv'
 
-autoload(:DataGetter, './lib/data_getters/data_getter.rb')
+# autoload(:DataGetter, './lib/data_getters/data_getter.rb')
 
-Dir["#{ Dir.pwd }/lib/**/*.rb"].each { |file| require file }
+# Dir["#{ Dir.pwd }/lib/**/*.rb"].each { |file| require file }
 
 
 Dotenv.load
