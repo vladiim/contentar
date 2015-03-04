@@ -2,3 +2,4 @@
 .rspec
 .ruby-version
 ./data
+.contentar-*

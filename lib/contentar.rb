@@ -1,20 +1,8 @@
-require 'spidr'
-require 'json'
-require 'csv'
-require 'rest-client'
-require 'dotenv'
-
-# autoload(:DataGetter, './lib/data_getters/data_getter.rb')
-
-# Dir["#{ Dir.pwd }/lib/**/*.rb"].each { |file| require file }
-
-
-Dotenv.load
-
 class Contentar
 
   attr_reader :baseurl, :spider, :crawler, :saver
   def initialize(baseurl)
+    # byebug
     @baseurl = baseurl
     @spider  = Spider.new(baseurl)
     @crawler = Crawler.new(spider.get_data)
@@ -31,3 +19,36 @@ class Contentar
       .gsub('/', '')
   end
 end
+
+require 'spidr'
+require 'json'
+require 'csv'
+require 'rest-client'
+require 'dotenv'
+
+Dotenv.load
+
+#-------------
+# TOP LEVEL
+#-------------
+autoload(:Spider,                    'contentar/spider')
+autoload(:Crawler,                   'contentar/crawler')
+autoload(:PageStats,                 'contentar/page_stats')
+autoload(:DataSaver,                 'contentar/data_saver')
+autoload(:DataGetter,                'contentar/data_getter')
+
+#-------------
+# DATA GETTERS
+#-------------
+autoload(:ArticleDataGetter,         'contentar/data_getters/article')
+autoload(:ContentDataGetter,         'contentar/data_getters/content')
+autoload(:ReadingLevelDataGetter,    'contentar/data_getters/reading_level')
+autoload(:SocialDataGetter,          'contentar/data_getters/social')
+
+#-------------
+# DATA PROCESSORS
+#-------------
+autoload(:ArticleDataProcessor,      'contentar/data_processors/article')
+autoload(:ContentDataProcessor,      'contentar/data_processors/content')
+autoload(:ReadingLevelDataProcessor, 'contentar/data_processors/reading_level')
+autoload(:SocialDataProcessor,       'contentar/data_processors/social')
