@@ -2,7 +2,6 @@ class Contentar
 
   attr_reader :baseurl, :spider, :crawler, :saver
   def initialize(baseurl)
-    # byebug
     @baseurl = baseurl
     @spider  = Spider.new(baseurl)
     @crawler = Crawler.new(spider.get_data)
@@ -27,6 +26,8 @@ require 'rest-client'
 require 'dotenv'
 
 Dotenv.load
+
+# Dir["#{Dir.pwd}/lib/contentar/**/*.rb"].each { |f| require f }
 
 #-------------
 # TOP LEVEL
