@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name         = 'contentar'
-  s.version      = '0.0.4'
+  s.version      = '0.0.5'
   s.date         = '2015-03-03'
   s.summary      = 'Competitive intelligence'
   s.description  = 'A Gem to produce competitive intelligence data'
